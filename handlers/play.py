@@ -92,7 +92,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
                    & ~filters.via_bot)
 async def play(_, message: Message):
 
-    lel = await message.reply("🔄 **Processing...**")
+    lel = await message.reply("🔄 **Taking a look ...**")
     
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
@@ -118,18 +118,18 @@ async def play(_, message: Message):
                 try:
                     await USER.join_chat(invitelink)
                     await USER.send_message(
-                        message.chat.id, "**Mizuki Music assistant joined this group for play music 🎵**")
+                        message.chat.id, "**Vexana Music assistant joined this group for playing music 🎵**")
 
                 except UserAlreadyParticipant:
                     pass
                 except Exception:
                     await lel.edit(
-                        f"<b>🛑 Flood Wait Error 🛑</b> \n\Hey {user.first_name}, assistant userbot couldn't join your group due to heavy join requests. Make sure userbot is not banned in group and try again later!")
+                        f"<b>🛑 Flood Wait Error 🛑</b> \n\Hey {user.first_name}, assistant userbot @vexana_assistant couldn't join your group due to heavy join requests. Make sure userbot is not banned in group and try again later!")
     try:
         await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"<i>Hey {user.first_name}, assistant userbot is not in this chat, ask admin to send /play command for first time to add it.</i>")
+            f"<i>Hey {user.first_name}, assistant userbot @vexana_assistant is not in this chat, ask admin to send /play command for first time to add it.</i>")
         return
     
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
@@ -143,7 +143,7 @@ async def play(_, message: Message):
 
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/caeb50039026a746e7252.jpg"
+        thumb_name = "https://telegra.ph/file/0c5212093d3fb422924a1.jpg"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -153,7 +153,7 @@ async def play(_, message: Message):
                 [
                     InlineKeyboardButton(
                         text="Channel 🔊",
-                        url="https://t.me/Infinity_BOTs")
+                        url="https://t.me/vexana_support")
                    
                 ]
             ]
@@ -201,7 +201,7 @@ async def play(_, message: Message):
             )
         except Exception as e:
             title = "NaN"
-            thumb_name = "https://telegra.ph/file/638c20c44ca418c8b2178.jpg"
+            thumb_name = "https://telegra.ph/file/0c5212093d3fb422924a1.jpg"
             duration = "NaN"
             views = "NaN"
             keyboard = InlineKeyboardMarkup(
@@ -222,11 +222,11 @@ async def play(_, message: Message):
         file_path = await converter.convert(youtube.download(url))
     else:
         if len(message.command) < 2:
-            return await lel.edit("🧐 **What's the song you want to play?**")
-        await lel.edit("🔎 **Finding the song...**")
+            return await lel.edit(" **What's the song you want to play? Spell it properly**")
+        await lel.edit("🔎 **Fetching song from database...**")
         query = message.text.split(None, 1)[1]
         # print(query)
-        await lel.edit("🎵 **Processing sounds...**")
+        await lel.edit("🎵 **Getting ready for playing...**")
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
